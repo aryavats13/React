@@ -1,0 +1,12 @@
+.cards-container{
+  
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+}
+.cards-container div {
+  border: 1px solid #040000;
+  padding: 10px;
+  width: 200px;         
+  text-align: center;  
+}
