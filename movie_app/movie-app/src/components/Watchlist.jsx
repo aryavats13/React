@@ -1,18 +1,18 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import './Favorites.css';
+import './Watchlist.css';
 
-function Favorites({ favorites, watchlist, toggleFavorite, toggleWatchlist }) {
-  if (favorites.length === 0) {
+function Watchlist({ watchlist, favorites, toggleFavorite, toggleWatchlist }) {
+  if (watchlist.length === 0) {
     return (
-      <div className="favorites-container">
+      <div className="watchlist-container">
         <div className="header">
           <Link to="/" className="back-link">← Back to Home</Link>
-          <h1>My Favorites</h1>
+          <h1>My Watchlist</h1>
         </div>
         <div className="empty-state">
-          <h2>❤️ No favorites yet</h2>
-          <p>Start adding movies you love!</p>
+          <h2>📋 Your watchlist is empty</h2>
+          <p>Add movies you want to watch later!</p>
           <Link to="/" className="browse-btn">Browse Movies</Link>
         </div>
       </div>
@@ -20,15 +20,15 @@ function Favorites({ favorites, watchlist, toggleFavorite, toggleWatchlist }) {
   }
 
   return (
-    <div className="favorites-container">
+    <div className="watchlist-container">
       <div className="header">
         <Link to="/" className="back-link">← Back to Home</Link>
-        <h1>My Favorites ({favorites.length})</h1>
+        <h1>My Watchlist ({watchlist.length})</h1>
       </div>
       
-      <div className="favorites-grid">
-        {favorites.map(movie => {
-          const isInWatchlist = watchlist.some(m => m.id === movie.id);
+      <div className="watchlist-grid">
+        {watchlist.map(movie => {
+          const isFavorite = favorites.some(m => m.id === movie.id);
           
           return (
             <div key={movie.id} className="movie-card">
@@ -58,17 +58,17 @@ function Favorites({ favorites, watchlist, toggleFavorite, toggleWatchlist }) {
                 <div className="action-buttons">
                   <button
                     onClick={() => toggleFavorite(movie)}
-                    className="icon-btn favorite"
-                    title="Remove from Favorites"
+                    className={`icon-btn ${isFavorite ? 'favorite' : ''}`}
+                    title={isFavorite ? 'Remove from Favorites' : 'Add to Favorites'}
                   >
-                    ❤️
+                    {isFavorite ? '❤️' : '🤍'}
                   </button>
                   <button
                     onClick={() => toggleWatchlist(movie)}
-                    className={`icon-btn ${isInWatchlist ? 'watchlist' : ''}`}
-                    title={isInWatchlist ? 'Remove from Watchlist' : 'Add to Watchlist'}
+                    className="icon-btn remove"
+                    title="Remove from Watchlist"
                   >
-                    {isInWatchlist ? '✓' : '+'}
+                    ✓
                   </button>
                 </div>
               </div>
@@ -80,4 +80,4 @@ function Favorites({ favorites, watchlist, toggleFavorite, toggleWatchlist }) {
   );
 }
 
-export default Favorites;
+export default Watchlist;
